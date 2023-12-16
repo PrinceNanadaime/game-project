@@ -78,11 +78,7 @@ func (s *ApiServer) HandleInsertionToDatabase(w http.ResponseWriter, r *http.Req
 		log.Println("В процессе записи данных в БД поймали исключение:", err.Error())
 		WriteJson(w, http.StatusInternalServerError, err.Error())
 	}
-	fact, err := s.database.Insert(body)
-	if err != nil {
-		log.Println("В процессе записи новой игры поймали исключение:", err.Error())
-		WriteJson(w, http.StatusInternalServerError, err.Error())
-	}
+	fact, _ := s.database.Insert(body)
 	WriteJson(w, http.StatusOK, fact)
 	log.Println("Запрос на запись новой игры в БД успешно выполнен!")
 }
